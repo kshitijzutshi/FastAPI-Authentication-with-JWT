@@ -6,7 +6,7 @@ import jwt
 from decouple import config
 
 JWT_SECRET = config('secret')
-JWT_ALGORITHM = config('HS256')
+JWT_ALGORITHM = config('algorithm')
 
 
 # Function returns the generated tokens

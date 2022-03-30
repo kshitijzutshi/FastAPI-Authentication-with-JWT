@@ -1,9 +1,10 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Body, Depends
 from app.model import PostSchema
 from app.model import UserSchema
 from app.model import UserLoginSchema
 from app.auth.jwt_handler import signJWT
+from app.auth.jwt_bearer import JWTBearer
 
 
 # Create dummy posts
@@ -51,8 +52,10 @@ def get_post(id: int):
         return {"message": "Post with id {} not found".format(id)}
     return post[0]
 
+
 #4 Post a new post
-@app.post("/posts", tags=["posts"])
+# A new post can be posted only if the user is logged in and JWT token is valid
+@app.post("/posts", dependencies=[Depends(JWTBearer())], tags=["posts"])
 def create_post(post: PostSchema):
     post.id = len(posts) + 1
     posts.append(post.dict())
@@ -60,3 +63,27 @@ def create_post(post: PostSchema):
     return {
         "message": "Post created successfully"
     }
+
+#5 User Signup
+@app.post("/users/signup", tags=["user"])
+def user_signup(user: UserSchema = Body(default=None)):
+    users.append(user)
+    return signJWT(user.email)
+
+def check_user(data: UserLoginSchema):
+    for user in users:
+        if user.email == data.email and user.password == data.password:
+            return True
+        return False
+
+# 6 User Login
+@app.post("/users/login", tags=["user"])
+def user_login(data: UserLoginSchema = Body(default=None)):
+    if check_user(data):
+        return signJWT(data.email)
+    return {"message": "Invalid credentials"}
+
+#7 User list 
+@app.get("/users", tags=["users"])
+def get_users():
+    return {"data": users}
