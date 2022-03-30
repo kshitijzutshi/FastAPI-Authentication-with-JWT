@@ -1,6 +1,9 @@
 import uvicorn
 from fastapi import FastAPI
 from app.model import PostSchema
+from app.model import UserSchema
+from app.model import UserLoginSchema
+from app.auth.jwt_handler import signJWT
 
 
 # Create dummy posts
@@ -47,3 +50,13 @@ def get_post(id: int):
     elif id > len(posts):
         return {"message": "Post with id {} not found".format(id)}
     return post[0]
+
+#4 Post a new post
+@app.post("/posts", tags=["posts"])
+def create_post(post: PostSchema):
+    post.id = len(posts) + 1
+    posts.append(post.dict())
+    print(posts)
+    return {
+        "message": "Post created successfully"
+    }
