@@ -86,7 +86,7 @@ In the POST route, add the dependencies argument to the @app property
 
 #### Conclusion
 
-This tutorial covered the process of securing a FastAPI application with JSON Web Tokens. You can find the source code in the [fastapi-jwt](https://github.com/testdrivenio/fastapi-jwt) repository. Thanks for reading.
+This tutorial covered the process of securing a FastAPI application with JSON Web Tokens. Thanks for reading.
 
 Future challenges:
 
@@ -103,3 +103,5 @@ https://video-to-markdown.marcomontalbano.com/
 https://github.com/BekBrace/FASTAPI-and-JWT-Authentication
 
 https://www.youtube.com/watch?v=0_seNFCtglk&ab_channel=BekBrace
+
+https://github.com/testdrivenio/fastapi-jwt
