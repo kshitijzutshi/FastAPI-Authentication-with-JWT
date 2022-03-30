@@ -1,6 +1,8 @@
 # FastAPI-Authentication-with-JWT
 This tutorial will teach you how to create authentication in a FastAPI application using JSON Web Tokens.
 
+[Medium Article](https://medium.com/@kshitij.zutshi/fast-api-authentication-with-jwt-c39194155a57) 🚀
+
 
 ### API with JWT Auth Demo
 
